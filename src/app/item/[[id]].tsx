@@ -1,13 +1,10 @@
-import type { RouteProp } from '@react-navigation/native';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/theme';
 import PriceLabel from '@/components/ui/price-label';
 import { mockListings } from '@/data/mockListings';
 
-type ItemDetailScreenRouteProp = RouteProp<'@/item/[id]', 'params'>;
-
-export default function ItemDetailScreen({ route }: { route: ItemDetailScreenRouteProp }) {
+export default function ItemDetailScreen({ route }: { route: { params: { id: string } } }) {
   const { id } = route.params;
 
   const listing = mockListings.find((l) => l.id === id);

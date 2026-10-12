@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/theme';
+import ReportModal from './report-modal';
 
 export interface ListingCardProps {
   id: string;
@@ -20,6 +21,7 @@ export interface ListingCardProps {
   onFavoritePress?: () => void;
   showOwner?: boolean;
   compact?: boolean;
+  onReport?: (id: string) => void;
 }
 
 export default function ListingCard({
@@ -38,7 +40,11 @@ export default function ListingCard({
   onFavoritePress,
   showOwner = true,
   compact = false,
+  onReport,
 }: ListingCardProps) {
+  const [reportVisible, setReportVisible] = React.useState(false);
+  const windowWidth = useWindowDimensions().width;
+
   const formatPrice = (amount: number, currency: string): string => {
     if (lendingMode === 'free') {
       return 'Free';
@@ -80,6 +86,20 @@ export default function ListingCard({
         >
           <Ionicons name="heart-outline" size={20} color={Colors.text} />
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.reportButton}
+          onPress={() => setReportVisible(true)}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="flag" size={18} color={Colors.textSecondary} />
+        </TouchableOpacity>
+        <ReportModal
+          visible={reportVisible}
+          itemType="listing"
+          itemId={id}
+          itemName={title}
+          onClose={() => setReportVisible(false)}
+        />
       </View>
 
       <View style={styles.content}>
@@ -193,6 +213,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: Spacing.sm,
     right: Spacing.sm,
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.full,
+    padding: Spacing.xs,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  reportButton: {
+    position: 'absolute',
+    top: Spacing.sm,
+    left: Spacing.sm,
     backgroundColor: Colors.surface,
     borderRadius: BorderRadius.full,
     padding: Spacing.xs,

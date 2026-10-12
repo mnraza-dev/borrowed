@@ -7,10 +7,8 @@
     "icon": "./assets/images/icon.png",
     "scheme": "borrowed",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
     "android": {
+      "privacyPolicyUrl": "https://borrowed.app/privacy",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -19,6 +17,9 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.mnraza.dev.borrowed"
+    },
+    "ios": {
+      "icon": "./assets/expo.icon"
     },
     "web": {
       "output": "static",
