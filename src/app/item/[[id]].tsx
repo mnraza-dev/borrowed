@@ -1,10 +1,13 @@
+import type { RouteProp } from '@expo/router';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/theme';
 import PriceLabel from '@/components/ui/price-label';
 import { mockListings } from '@/data/mockListings';
 
-export default function ItemDetailScreen({ route }: { route: any }) {
+type ItemDetailScreenRouteProp = RouteProp<'@/item/[id]', 'params'>;
+
+export default function ItemDetailScreen({ route }: { route: ItemDetailScreenRouteProp }) {
   const { id } = route.params;
 
   const listing = mockListings.find((l) => l.id === id);
