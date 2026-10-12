@@ -12,15 +12,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/theme';
 
-export interface ReportModalProps {
-  visible: boolean;
-  itemType: 'listing' | 'user' | 'comment';
-  itemId: string;
-  itemName?: string;
-  onReport?: (reason: string, details: string) => Promise<void>;
-  onClose: () => void;
-}
-
 export enum ReportReason {
   SPAM = 'spam',
   FRAUD = 'fraud',
@@ -31,15 +22,34 @@ export enum ReportReason {
   OTHER = 'other',
 }
 
-const REPORT_REASON_OPTIONS: { value: ReportReason; label: string; icon: string }[] = [
-  { value: ReportReason.SPAM, label: 'Spam or irrelevant', icon: 'alert-circle-outline' },
-  { value: ReportReason.FRAUD, label: 'Scam or fraud', icon: 'shield-outline' },
-  { value: ReportReason.INAPPROPRIATE_CONTENT, label: 'Inappropriate content', icon: 'eye-off-outline' },
-  { value: ReportReason.HARASSMENT, label: 'Harassment or hate', icon: 'people-off-outline' },
-  { value: ReportReason.ILLEGAL_ITEMS, label: 'Illegal or dangerous items', icon: 'warning-outline' },
-  { value: ReportReason.MISLEADING, label: 'Misleading listing', icon: 'document-text-outline' },
-  { value: ReportReason.OTHER, label: 'Other', icon: 'help-circle-outline' },
+const REPORT_REASON_OPTIONS: { value: ReportReason; label: string }[] = [
+  { value: ReportReason.SPAM, label: 'Spam or irrelevant' },
+  { value: ReportReason.FRAUD, label: 'Scam or fraud' },
+  { value: ReportReason.INAPPROPRIATE_CONTENT, label: 'Inappropriate content' },
+  { value: ReportReason.HARASSMENT, label: 'Harassment or hate' },
+  { value: ReportReason.ILLEGAL_ITEMS, label: 'Illegal or dangerous items' },
+  { value: ReportReason.MISLEADING, label: 'Misleading listing' },
+  { value: ReportReason.OTHER, label: 'Other' },
 ];
+
+const REPORT_ICON_MAP: Record<ReportReason, string> = {
+  [ReportReason.SPAM]: 'alert-circle-outline',
+  [ReportReason.FRAUD]: 'shield-outline',
+  [ReportReason.INAPPROPRIATE_CONTENT]: 'eye-off-outline',
+  [ReportReason.HARASSMENT]: 'people-off-outline',
+  [ReportReason.ILLEGAL_ITEMS]: 'warning-outline',
+  [ReportReason.MISLEADING]: 'document-text-outline',
+  [ReportReason.OTHER]: 'help-circle-outline',
+};
+
+export interface ReportModalProps {
+  visible: boolean;
+  itemType: 'listing' | 'user' | 'comment';
+  itemId: string;
+  itemName?: string;
+  onReport?: (reason: string, details: string) => Promise<void>;
+  onClose: () => void;
+}
 
 export default function ReportModal({
   visible,
@@ -100,7 +110,7 @@ export default function ReportModal({
             activeOpacity={0.7}
           >
             <Ionicons
-              name={option.icon}
+              name={REPORT_ICON_MAP[option.value] as any}
               size={22}
               color={
                 selectedReason === option.value ? Colors.primaryContrast : Colors.textSecondary

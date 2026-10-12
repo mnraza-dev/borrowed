@@ -72,7 +72,7 @@ export default function ListingCard({
           <Image source={{ uri: imageUrl }} style={styles.image} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Ionicons name="image" size={32} color={Colors.textTertiary} />
+            <Ionicons name="image-outline" size={32} color={Colors.textTertiary} />
           </View>
         )}
         <View style={styles.lendingModeBadge}>
