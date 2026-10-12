@@ -1,4 +1,4 @@
-import type { RouteProp } from '@expo/router';
+import type { RouteProp } from '@react-navigation/native';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/theme';
